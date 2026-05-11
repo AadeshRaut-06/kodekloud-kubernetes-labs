@@ -1,0 +1,18 @@
+FROM ubuntu:latest
+
+LABEL dev="Aadesh"
+
+RUN apt-get update && \
+    apt-get install apache2 unzip -y && \
+    rm -rf /var/www/html/index.html
+
+ADD https://templatemo.com/tm-624-lustro-slideshow/var/www/html/templatemo-tm-624-lustro-slideshow.zip
+
+WORKDIR /var/www/html
+
+RUN unzip templatemo-tm-624-lustro-slideshow.zip && \
+    mv templatemo-tm-624-lustro-slideshow/* /var/www/html/
+
+EXPOSE 80
+
+CMD ["apache2ctl", "-D", "FOREGROUND"]
